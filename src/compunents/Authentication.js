@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { setAuthedUser } from '../actions/authedUser'
 import { Redirect } from 'react-router-dom'
-import { Link, withRouter } from 'react-router-dom'
 
 class Authentication extends Component {
   state = {
@@ -50,12 +49,9 @@ class Authentication extends Component {
           </select>
         </div>
 
-      <Link to={`/home`} >
         <button onClick={(e) => this.toParent(e, this.props.authedUser)}>
           Login
         </button>
-
-      </Link>
       </div>
     )
   }
@@ -68,4 +64,4 @@ function mapStateToProps ({ users, authedUser }) {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(Authentication))
+export default connect(mapStateToProps)(Authentication)

@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
 import Avatar from './Avatar'
-import { Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
 class Question extends Component {
   state = {
@@ -30,7 +29,6 @@ class Question extends Component {
     const avatar = users[question.author].avatarURL
 
     return (
-      <Link to={`${this.state.pull}`}>
       <div classs="question">
         <h4>{users[question.author].name} asks</h4>
 
@@ -51,7 +49,6 @@ class Question extends Component {
         </div>
 
       </div>
-    </Link>
     )
   }
 }

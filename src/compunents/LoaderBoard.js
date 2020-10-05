@@ -5,7 +5,7 @@ import Avatar from './Avatar'
 
 class LoaderBoard extends Component {
   render() {
-    const { users, questions, sortedUserIds } = this.props
+    const { users, sortedUserIds } = this.props
     return(
       <div className='center'>
         <ul>
@@ -35,7 +35,6 @@ class LoaderBoard extends Component {
 function mapStateToProps({ users, questions }) {
   return {
     users: users,
-    questions: questions,
     sortedUserIds: Object.keys(users)
       .sort((a, b) => (Object.keys(users[b].answers).length + users[b].questions.length) -
                       (Object.keys(users[a].answers).length + users[a].questions.length))

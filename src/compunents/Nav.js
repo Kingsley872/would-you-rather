@@ -12,18 +12,27 @@ class Nav extends Component {
               Home
             </NavLink>
           </li>
+
           <li>
-            <NavLink to='/authentication' activeClassName='active'>
-              {this.props.authedUser === ''
-                ? 'Login'
-                : 'Logout'}
+            <NavLink to='/newQuestion' activeClassName='active'>
+              NewQuestion
             </NavLink>
           </li>
+
           <li>
             <NavLink to='/loaderBoard' activeClassName='active'>
               LoaderBoard
             </NavLink>
           </li>
+
+          <li>
+            <NavLink to='/authentication' activeClassName='active'>
+              {this.props.authedUser === ''
+                ? 'Login'
+                : `Hollo ${this.props.authedUser} Logout`}
+            </NavLink>
+          </li>
+
         </ul>
       </nav>
     )

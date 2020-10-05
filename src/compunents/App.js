@@ -10,6 +10,7 @@ import UnansweredPull from './UnansweredPull'
 import AnsweredPull from './AnsweredPull'
 import Authentication from './Authentication'
 import LoaderBoard from './LoaderBoard'
+import NewQuestion from './NewQuestion'
 
 class App extends Component {
   componentDidMount(){
@@ -19,21 +20,24 @@ class App extends Component {
   render(){
     return (
       <Router>
-        <LoadingBar />
-        <div className='container'>
-          <h3 className='center'>React App Would You Ranther</h3>
-          <Nav />
-          <hr />
-          {this.props.loading === true
-            ? null
-            : <div>
-                <Route path='/home' component={Home} />
-                <Route path='/authentication' component={Authentication} />
-                <Route path='/unanswered-pull/:id' component={UnansweredPull} />
-                <Route path='/answered-pull/:id' component={AnsweredPull} />
-                <Route path='/loaderBoard' component={LoaderBoard} />
-              </div>}
-        </div>
+        <Fragment>
+          <LoadingBar />
+          <div className='container'>
+            <h3 className='center'>React App Would You Ranther</h3>
+            <Nav />
+            <hr />
+            {this.props.loading === true
+              ? null
+              : <div>
+                  <Route path='/home' component={Home} />
+                  <Route path='/authentication' component={Authentication} />
+                  <Route path='/unanswered-pull/:id' component={UnansweredPull} />
+                  <Route path='/answered-pull/:id' component={AnsweredPull} />
+                  <Route path='/loaderBoard' component={LoaderBoard} />
+                  <Route path='/newQuestion' component={NewQuestion} />
+                </div>}
+          </div>
+        </Fragment>
       </Router>
     );
   }
