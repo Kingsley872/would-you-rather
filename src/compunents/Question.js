@@ -1,19 +1,36 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import UnansweredPull from './UnansweredPull'
-import AnsweredPull from './AnsweredPull'
+import { Redirect } from 'react-router-dom'
 import Avatar from './Avatar'
+import { Link, withRouter } from 'react-router-dom'
 
 class Question extends Component {
-  // handleViewPull = (e) => {
-  //   e.preventDefault()
-  // }
+  state = {
+    pull: ''
+  }
+
+  toParent = (e) => {
+    e.preventDefault()
+    let temp = ''
+    if(this.props.answered){
+      temp = `/answered-pull/${this.props.id}`
+      this.props.history.push(temp)
+    } else {
+      temp = `/unanswered-pull/${this.props.id}`
+      this.props.history.push(temp)
+    }
+
+    this.setState(() => ({
+      pull: temp
+    }))
+  }
 
   render() {
-    const { users, authedUser, question } = this.props
+    const { users, authedUser, question, id } = this.props
     const avatar = users[question.author].avatarURL
 
     return (
+      <Link to={`${this.state.pull}`}>
       <div classs="question">
         <h4>{users[question.author].name} asks</h4>
 
@@ -27,24 +44,28 @@ class Question extends Component {
           <p>{question.optionOne.text.substring(0, 10)}...</p>
           <button
             className='btn'
-            onClick={this.handleViewPull}
+            onClick={this.toParent}
           >
             View pull
           </button>
         </div>
 
       </div>
+    </Link>
     )
   }
 }
 
 function mapStateToProps({ authedUser, users, questions }, { id, answered}) {
   const question = questions[id]
+
   return {
     users,
     authedUser,
-    question
+    question,
+    id,
+    answered
   }
 }
 
-export default connect(mapStateToProps)(Question)
+export default withRouter(connect(mapStateToProps)(Question))

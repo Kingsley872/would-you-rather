@@ -20,34 +20,42 @@ class Home extends Component {
       : this.props.quesiontIds.filter((id) => !this.props.users[this.props.authedUser].answers[id])
   }
 
+  renderQuestions = () => (
+    <div>
+      <button
+        disabled={!this.state.answered}
+        onClick={this.handleAnswered}
+      >
+        Unanswered Question
+      </button>
+
+      <button
+        disabled={this.state.answered}
+        onClick={this.handleAnswered}
+      >
+        Answered Question
+      </button>
+
+      <ul className='home-list'>
+        {this.filterQuestionsIds().map((id) => (
+          <li key={id}>
+            <Question id={id} answered={this.state.answered}/>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+
   render() {
     return (
       <div>
         <h3 className="center">
           Your Timeline
         </h3>
-
-        <button
-          disabled={!this.state.answered}
-          onClick={this.handleAnswered}
-        >
-          Unanswered Question
-        </button>
-
-        <button
-          disabled={this.state.answered}
-          onClick={this.handleAnswered}
-        >
-          Answered Question
-        </button>
-
-        <ul className='home-list'>
-          {this.filterQuestionsIds().map((id) => (
-            <li key={id} answered={this.state.answered ? 'true' : 'false'}>
-              <Question id={id}/>
-            </li>
-          ))}
-        </ul>
+        {this.props.authedUser !== ''
+          ? this.renderQuestions()
+          : <p>Please Login</p>
+        }
       </div>
     )
   }

@@ -30,7 +30,8 @@ class UnansweredPull extends Component {
   }
 }
 
-function mapStateToProps({ users, questions }, {id}) {
+function mapStateToProps({ users, questions }, props) {
+  const { id } = props.match.params
   return {
     users: users,
     question: questions[id]
