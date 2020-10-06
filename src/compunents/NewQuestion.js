@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { handleAddQuestion } from '../actions/questions'
+import { Redirect } from 'react-router-dom'
 
 class NewQuestion extends Component {
   state = {
     op1Text: '',
-    op2Text: ''
+    op2Text: '',
+    toHome: false
   }
 
   handleOp1Change = (e) => {
@@ -22,11 +25,25 @@ class NewQuestion extends Component {
   }
 
   handleOnClick = (e) => {
-    console.log(this.state.op1Text)
-    console.log(this.state.op2Text)
+    e.preventDefault()
+    if(this.props.authedUser === '') {
+      alert("Login First!")
+    } else {
+      this.props.dispatch(handleAddQuestion(this.state.op1Text, this.state.op2Text))
+
+      this.setState(() => ({
+        op1Text: '',
+        op2Text: '',
+        toHome: true
+      }))
+    }
   }
 
   render() {
+
+    if(this.state.toHome === true) {
+      return <Redirect to="/home" />
+    }
 
     const { op1Text, op2Text } = this.state
     const op1TextLeft = 100 - op1Text.length
@@ -80,4 +97,10 @@ class NewQuestion extends Component {
   }
 }
 
-export default connect()(NewQuestion)
+function mapStateToProps({ authedUser }){
+  return {
+    authedUser: authedUser
+  }
+}
+
+export default connect(mapStateToProps)(NewQuestion)
