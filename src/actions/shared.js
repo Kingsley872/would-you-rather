@@ -1,4 +1,4 @@
-import { getInitialData } from '../utils/api'
+import { _getUsers, _getQuestions } from '../utils/_DATA'
 import { receiveUsers } from '../actions/users'
 import { receiveQuestions } from '../actions/questions'
 import { setAuthedUser } from '../actions/authedUser'
@@ -17,4 +17,14 @@ export function handleInitialData () {
         dispatch(hideLoading())
       })
   }
+}
+
+function getInitialData () {
+  return Promise.all([
+    _getUsers(),
+    _getQuestions(),
+  ]).then(([users, questions]) => ({
+    users,
+    questions,
+  }))
 }
