@@ -25,7 +25,7 @@ class Question extends Component {
   }
 
   render() {
-    const { users, authedUser, question, id } = this.props
+    const { users, question } = this.props
     const avatar = users[question.author].avatarURL
 
     return (

@@ -14,30 +14,25 @@ class Authentication extends Component {
     this.setState({ value: e.target.value })
   }
 
-  handleOnClick = (e) => {
-    e.preventDefault()
-    this.props.dispatch(setAuthedUser(this.state.value))
-    this.setState({ toHome: true})
-  }
-
   toParent = (e, id) => {
     e.preventDefault()
     this.props.dispatch(setAuthedUser(this.state.value))
-    this.props.history.push(`/home`)
+    this.props.history.push(`/`)
   }
 
   render() {
-    const { users } = this.props
     if(this.state.toHome === true){
-      return <Redirect to="/home" />
+      return <Redirect to="/" />
     }
+
+    const { users, authedUser } = this.props
 
     return (
       <div className='center'>
 
         <div>
           <p>Page sign in to continue</p>
-          <select defaultValue={this.props.authedUser} onChange={this.handleOnChange}>
+          <select defaultValue={authedUser} onChange={this.handleOnChange}>
             <option value="">
               Logout
             </option>
@@ -49,7 +44,7 @@ class Authentication extends Component {
           </select>
         </div>
 
-        <button onClick={(e) => this.toParent(e, this.props.authedUser)}>
+        <button onClick={(e) => this.toParent(e, authedUser)}>
           Login
         </button>
       </div>

@@ -29,12 +29,12 @@ class App extends Component {
             {this.props.loading === true
               ? null
               : <div>
-                  <Route path='/home' component={Home} />
+                  <Route path='/' exact component={Home} />
                   <Route path='/authentication' component={Authentication} />
                   <Route path='/unanswered-pull/:id' component={UnansweredPull} />
                   <Route path='/answered-pull/:id' component={AnsweredPull} />
                   <Route path='/loaderBoard' component={LoaderBoard} />
-                  <Route path='/newQuestion' component={NewQuestion} />
+                  <Route path='/add' component={NewQuestion} />
                 </div>}
           </div>
         </Fragment>

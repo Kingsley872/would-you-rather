@@ -16,8 +16,8 @@ class Home extends Component {
 
   filterQuestionsIds = () => {
     return this.state.answered
-      ? this.props.quesiontIds.filter((id) => this.props.users[this.props.authedUser].answers[id])
-      : this.props.quesiontIds.filter((id) => !this.props.users[this.props.authedUser].answers[id])
+      ? this.props.quesiontIds.filter((id) => Object.keys(this.props.users[this.props.authedUser].answers).includes(id))
+      : this.props.quesiontIds.filter((id) => !Object.keys(this.props.users[this.props.authedUser].answers).includes(id))
   }
 
   renderQuestions = () => (

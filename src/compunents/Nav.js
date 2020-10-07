@@ -4,17 +4,19 @@ import { connect } from 'react-redux'
 
 class Nav extends Component {
   render() {
+    const { authedUser } = this.props
+
     return (
       <nav className='nav'>
         <ul>
           <li>
-            <NavLink to='/home' exact activeClassName='active'>
+            <NavLink to='/' exact activeClassName='active'>
               Home
             </NavLink>
           </li>
 
           <li>
-            <NavLink to='/newQuestion' activeClassName='active'>
+            <NavLink to='/add' activeClassName='active'>
               NewQuestion
             </NavLink>
           </li>
@@ -27,9 +29,9 @@ class Nav extends Component {
 
           <li>
             <NavLink to='/authentication' activeClassName='active'>
-              {this.props.authedUser === ''
+              {authedUser === ''
                 ? 'Login'
-                : `Hollo ${this.props.authedUser} Logout`}
+                : `Hollo ${authedUser} Logout`}
             </NavLink>
           </li>
 

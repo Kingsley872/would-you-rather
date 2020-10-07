@@ -108,36 +108,6 @@ li {
   font-size: 18px;
   margin: 10px 0;
 }
-/* .tweet-icons {
-  display: flex;
-  align-items: center;
-}
-.tweet-icons > span {
-  color: #969696;
-  margin: 0 15px 0 5px;
-  font-size: 18px !important;
-}
-.tweet-icon {
-  font-size: 27px;
-  color: #697784;
-}
-.tweet-icon:hover {
-  color: #00b5d6;
-  cursor: pointer;
-}
-.replying-to {
-  border: none;
-  background: transparent;
-  margin: 0;
-  padding: 0;
-  color: #969696;
-  cursor: pointer;
-}
-
-.heart-button {
-  background: transparent;
-  border: none;
-} */
 
 .new-question {
   width: 100%;

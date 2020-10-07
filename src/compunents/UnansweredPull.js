@@ -1,12 +1,48 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import Avatar from './Avatar'
+import { handleAnswerQuestion } from '../actions/questions'
 
 class UnansweredPull extends Component {
+  state = {
+    result: '',
+    toHome: false
+  }
+
+  handleOnChange = (e) => {
+    const text = e.target.value
+    this.setState(() => ({
+      result: text,
+    }))
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault()
+    if(this.state.result !== ''){
+      this.props.dispatch(
+        handleAnswerQuestion(this.props.question.id, this.state.result)
+      )
+
+      this.setState(() => ({
+        result: '',
+        toHome: true
+      }))
+
+    } else {
+      alert("Pick one as your answer")
+    }
+  }
 
   render() {
+
+    if(this.state.toHome === true) {
+      return <Redirect to="/" />
+    }
+
     const { users, question } = this.props
     const avatar = users[question.author].avatarURL
+
     return(
       <div className='center'>
         <h4>{users[question.author].name} asks: </h4>
@@ -17,11 +53,25 @@ class UnansweredPull extends Component {
 
         <div className="question-info">
           <h5>Would you rather</h5>
-          <p>{question.optionOne.text}</p>
-          <p>{question.optionTwo.text}</p>
+
+          <div onChange={this.handleOnChange}>
+            <input
+              type="radio"
+              value="optionOne"
+              name="options"
+            />
+            {question.optionOne.text}
+            <input
+              type="radio"
+              value="optionTwo"
+              name="options"
+            />
+            {question.optionTwo.text}
+          </div>
+
         </div>
 
-        <button>
+        <button onClick={this.handleSubmit}>
           Submit
         </button>
 

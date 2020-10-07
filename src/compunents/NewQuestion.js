@@ -42,7 +42,7 @@ class NewQuestion extends Component {
   render() {
 
     if(this.state.toHome === true) {
-      return <Redirect to="/home" />
+      return <Redirect to="/" />
     }
 
     const { op1Text, op2Text } = this.state

@@ -4,7 +4,7 @@ import Avatar from './Avatar'
 
 class AnsweredPull extends Component {
   render() {
-    const { users, question } = this.props
+    const { users, question, myVote } = this.props
     const avatar = users[question.author].avatarURL
     const opOneVotes = question.optionOne.votes.length
     const opTwoVotes = question.optionTwo.votes.length
@@ -29,7 +29,7 @@ class AnsweredPull extends Component {
             <p>{question.optionTwo.text}</p>
             <p>{parseFloat(opTwoVotes/totalVotes*100).toFixed(2)}%</p>
             <p>{opTwoVotes} out of {totalVotes}</p>
-            <p>My Vote is {this.props.myVote}</p>
+            <p>My Vote is {myVote}</p>
           </div>
         </div>
 
@@ -41,7 +41,7 @@ class AnsweredPull extends Component {
 function mapStateToProps({ authedUser, users, questions }, props) {
   const { id } = props.match.params
   const myVote = users[authedUser].answers[id]
-  console.log(myVote)
+  
   return {
     users: users,
     question: questions[id],
