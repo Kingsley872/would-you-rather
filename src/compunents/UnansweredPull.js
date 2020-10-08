@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import Avatar from './Avatar'
 import { handleAnswerQuestion } from '../actions/questions'
+import NotFoundPage from './NotFoundPage'
 
 class UnansweredPull extends Component {
   state = {
@@ -35,12 +36,18 @@ class UnansweredPull extends Component {
   }
 
   render() {
+    const { authedUser, users, question } = this.props
+
+    if(authedUser === ''){
+      return (
+        <NotFoundPage />
+      )
+    }
 
     if(this.state.toHome === true) {
       return <Redirect to="/" />
     }
 
-    const { users, question } = this.props
     const avatar = users[question.author].avatarURL
 
     return(
@@ -80,9 +87,10 @@ class UnansweredPull extends Component {
   }
 }
 
-function mapStateToProps({ users, questions }, props) {
+function mapStateToProps({ authedUser, users, questions }, props) {
   const { id } = props.match.params
   return {
+    authedUser: authedUser,
     users: users,
     question: questions[id]
   }
