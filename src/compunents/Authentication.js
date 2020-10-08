@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom'
 class Authentication extends Component {
   state = {
     value: '',
-    toHome: false
+    redirect: false
   }
 
   handleOnChange = (e) => {
@@ -17,12 +17,17 @@ class Authentication extends Component {
   toParent = (e, id) => {
     e.preventDefault()
     this.props.dispatch(setAuthedUser(this.state.value))
-    this.props.history.push(`/`)
+
+    this.setState(() => ({
+      redirect: true
+    }))
   }
 
   render() {
-    if(this.state.toHome === true){
-      return <Redirect to="/" />
+    const { from } = this.props.location.state || { from: { pathname: '/'} }
+
+    if(this.state.redirect === true){
+      return <Redirect to={from} />
     }
 
     const { users, authedUser } = this.props

@@ -1,11 +1,25 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Avatar from './Avatar'
+import { Redirect } from 'react-router-dom'
 
 
 class LoaderBoard extends Component {
   render() {
-    const { users, sortedUserIds } = this.props
+    const { authedUser, users, sortedUserIds } = this.props
+
+    if(authedUser === ''){
+      alert("YOU NEED YO LOGIN FIRST!")
+      return (
+        <Redirect
+          to={{
+              pathname: '/authentication',
+              state: { from: this.props.location }
+          }}
+        />
+      )
+    }
+
     return(
       <div className='center'>
         <ul>
@@ -32,8 +46,9 @@ class LoaderBoard extends Component {
   }
 }
 
-function mapStateToProps({ users, questions }) {
+function mapStateToProps({ authedUser, users, questions }) {
   return {
+    authedUser: authedUser,
     users: users,
     sortedUserIds: Object.keys(users)
       .sort((a, b) => (Object.keys(users[b].answers).length + users[b].questions.length) -

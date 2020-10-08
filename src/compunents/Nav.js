@@ -1,11 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-class Nav extends Component {
-  render() {
-    const { authedUser } = this.props
-
+const Nav = (props) => {
     return (
       <nav className='nav'>
         <ul>
@@ -22,23 +19,22 @@ class Nav extends Component {
           </li>
 
           <li>
-            <NavLink to='/loaderBoard' activeClassName='active'>
+            <NavLink to='/loaderboard' activeClassName='active'>
               LoaderBoard
             </NavLink>
           </li>
 
           <li>
             <NavLink to='/authentication' activeClassName='active'>
-              {authedUser === ''
+              {props.authedUser === ''
                 ? 'Login'
-                : `Hollo ${authedUser} Logout`}
+                : `Hollo ${props.authedUser} Logout`}
             </NavLink>
           </li>
 
         </ul>
       </nav>
     )
-  }
 }
 
 function mapStateToProps ({ authedUser }) {

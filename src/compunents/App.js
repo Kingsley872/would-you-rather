@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route , Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
 import LoadingBar from 'react-redux-loading'
@@ -11,6 +11,7 @@ import AnsweredPull from './AnsweredPull'
 import Authentication from './Authentication'
 import LoaderBoard from './LoaderBoard'
 import NewQuestion from './NewQuestion'
+import NotFoundPage from './NotFoundPage'
 
 class App extends Component {
   componentDidMount(){
@@ -28,14 +29,15 @@ class App extends Component {
             <hr />
             {this.props.loading === true
               ? null
-              : <div>
+              : <Switch>
                   <Route path='/' exact component={Home} />
                   <Route path='/authentication' component={Authentication} />
                   <Route path='/unanswered-pull/:id' component={UnansweredPull} />
                   <Route path='/answered-pull/:id' component={AnsweredPull} />
-                  <Route path='/loaderBoard' component={LoaderBoard} />
+                  <Route path='/loaderboard' component={LoaderBoard} />
                   <Route path='/add' component={NewQuestion} />
-                </div>}
+                  <Route path='*' component={NotFoundPage} />
+                </Switch>}
           </div>
         </Fragment>
       </Router>
