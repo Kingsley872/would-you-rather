@@ -27,9 +27,8 @@ class App extends Component {
             <h3 className='center'>React App Would You Ranther</h3>
             <Nav />
             <hr />
-            {this.props.loading === true
-              ? null
-              : <Switch>
+            {
+               <Switch>
                   <Route path='/' exact component={Home} />
                   <Route path='/authentication' component={Authentication} />
                   <Route path='/unanswered-pull/:id' component={UnansweredPull} />
@@ -45,10 +44,4 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({ authedUser }) {
-  return {
-    loading: authedUser === null
-  }
-}
-
-export default connect(mapStateToProps)(App);
+export default connect()(App);

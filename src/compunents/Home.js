@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Question from './Question'
+import {Redirect} from 'react-router-dom'
 
 class Home extends Component {
   state = {
@@ -52,9 +53,9 @@ class Home extends Component {
         <h3 className="center">
           Your Timeline
         </h3>
-        {this.props.authedUser !== ''
+        {this.props.authedUser !== null
           ? this.renderQuestions()
-          : <p>Please Login</p>
+          : <Redirect to='/authentication' />
         }
       </div>
     )

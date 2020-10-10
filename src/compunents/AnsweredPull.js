@@ -1,10 +1,19 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Avatar from './Avatar'
+import NotFoundPage from './NotFoundPage'
 
 class AnsweredPull extends Component {
   render() {
-    const { users, question, myVote } = this.props
+    const { authedUser, users, question, id } = this.props
+
+    if(authedUser === null){
+      return (
+        <NotFoundPage />
+      )
+    }
+
+    const myVote = users[authedUser].answers[id]
     const avatar = users[question.author].avatarURL
     const opOneVotes = question.optionOne.votes.length
     const opTwoVotes = question.optionTwo.votes.length
@@ -40,12 +49,14 @@ class AnsweredPull extends Component {
 
 function mapStateToProps({ authedUser, users, questions }, props) {
   const { id } = props.match.params
-  const myVote = users[authedUser].answers[id]
-  
+  // const myVote = users[authedUser].answers[id]
+
   return {
+    authedUser: authedUser,
     users: users,
     question: questions[id],
-    myVote: myVote
+    id: id
+    // myVote: myVote
   }
 }
 

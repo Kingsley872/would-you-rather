@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { setAuthedUser } from '../actions/authedUser'
 import { Redirect } from 'react-router-dom'
+import { setAuthedUser } from '../actions/authedUser'
+import { unSetAuthedUser } from '../actions/authedUser'
 
 class Authentication extends Component {
   state = {
-    value: '',
+    value: this.props.authedUser === null ? 'empty' : this.props.authedUser,
     redirect: false
   }
 
@@ -23,10 +24,19 @@ class Authentication extends Component {
     }))
   }
 
+  handleLogout = (e) => {
+    this.props.dispatch(unSetAuthedUser(null))
+
+    this.setState(() => ({
+      value: 'empty'
+    }))
+  }
+
   render() {
+    const { value, redirect } = this.state
     const { from } = this.props.location.state || { from: { pathname: '/'} }
 
-    if(this.state.redirect === true){
+    if(redirect === true){
       return <Redirect to={from} />
     }
 
@@ -37,20 +47,36 @@ class Authentication extends Component {
 
         <div>
           <p>Page sign in to continue</p>
-          <select defaultValue={authedUser} onChange={this.handleOnChange}>
-            <option value="">
-              Logout
+          <select
+            defaultValue={value}
+            onChange={this.handleOnChange}
+          >
+
+            <option value='empty'>
+              Empty
             </option>
+
             {Object.keys(users).map((key) => (
               <option value={key} key={key}>
                 {key}
               </option>
             ))}
+
           </select>
         </div>
 
-        <button onClick={(e) => this.toParent(e, authedUser)}>
+        <button
+          onClick={(e) => this.toParent(e, authedUser)}
+          disabled={value === 'empty' || authedUser !== null}
+        >
           Login
+        </button>
+
+        <button
+          onClick={this.handleLogout}
+          disabled={ authedUser === null}
+        >
+          Logout
         </button>
       </div>
     )

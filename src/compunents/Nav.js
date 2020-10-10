@@ -26,7 +26,7 @@ const Nav = (props) => {
 
           <li>
             <NavLink to='/authentication' activeClassName='active'>
-              {props.authedUser === ''
+              {props.authedUser === null
                 ? 'Login'
                 : `Hollo ${props.authedUser} Logout`}
             </NavLink>

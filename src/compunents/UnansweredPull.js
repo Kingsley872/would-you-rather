@@ -38,7 +38,7 @@ class UnansweredPull extends Component {
   render() {
     const { authedUser, users, question } = this.props
 
-    if(authedUser === ''){
+    if(authedUser === null){
       return (
         <NotFoundPage />
       )

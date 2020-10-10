@@ -8,7 +8,7 @@ class LoaderBoard extends Component {
   render() {
     const { authedUser, users, sortedUserIds } = this.props
 
-    if(authedUser === ''){
+    if(authedUser === null){
       alert("YOU NEED YO LOGIN FIRST!")
       return (
         <Redirect

@@ -10,23 +10,15 @@ class NewQuestion extends Component {
     toHome: false
   }
 
-  handleOp1Change = (e) => {
-    const text = e.target.value
-    this.setState(() => ({
-      op1Text: text
-    }))
-  }
-
-  handleOp2Change = (e) => {
-    const text = e.target.value
-    this.setState(() => ({
-      op2Text:text
-    }))
+  handleOpChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    })
   }
 
   handleOnClick = (e) => {
     e.preventDefault()
-    if(this.props.authedUser === '') {
+    if(this.props.authedUser === null) {
       alert("Login First!")
     } else {
       this.props.dispatch(handleAddQuestion(this.state.op1Text, this.state.op2Text))
@@ -58,8 +50,9 @@ class NewQuestion extends Component {
             placeholder='option one'
             value={op1Text}
             className='textarea'
+            name='op1Text'
             maxLength={100}
-            onChange={this.handleOp1Change}
+            onChange={this.handleOpChange}
             />
           {op1TextLeft <= 20 && (
             <div className='option-text-length'>
@@ -73,8 +66,9 @@ class NewQuestion extends Component {
             placeholder='option two'
             value={op2Text}
             className='textarea'
+            name='op2Text'
             maxLength={100}
-            onChange={this.handleOp2Change}
+            onChange={this.handleOpChange}
             />
           {op2TextLeft <= 20 && (
             <div className='option-text-length'>
