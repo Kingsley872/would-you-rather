@@ -4,7 +4,7 @@ import UnansweredPull from './UnansweredPull'
 import AnsweredPull from './AnsweredPull'
 import NotFoundPage from './NotFoundPage'
 
-const Question = (props) => {
+const Pull = (props) => {
   const { authedUser, users, questions, id } = props
 
   const vaildId = Object.keys(questions).includes(id)
@@ -33,4 +33,4 @@ function mapStateToProps({ authedUser, users, questions }, props) {
   }
 }
 
-export default connect(mapStateToProps)(Question)
+export default connect(mapStateToProps)(Pull)

@@ -10,7 +10,7 @@ import Authentication from './Authentication'
 import LoaderBoard from './LoaderBoard'
 import NewQuestion from './NewQuestion'
 import NotFoundPage from './NotFoundPage'
-import Question from './Question'
+import Pull from './Pull'
 
 class App extends Component {
   componentDidMount(){
@@ -30,7 +30,7 @@ class App extends Component {
                <Switch>
                   <Route path='/' exact component={Home} />
                   <Route path='/authentication' component={Authentication} />
-                  <Route path='/questions/:question_id' component={Question} />
+                  <Route path='/questions/:question_id' component={Pull} />
                   <Route path='/loaderboard' component={LoaderBoard} />
                   <Route path='/add' component={NewQuestion} />
                   <Route path='*' component={NotFoundPage} />
