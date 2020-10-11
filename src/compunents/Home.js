@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Question from './Question'
+import Questions from './Questions'
 import {Redirect} from 'react-router-dom'
 
 class Home extends Component {
@@ -37,13 +37,7 @@ class Home extends Component {
         Answered Question
       </button>
 
-      <ul className='home-list'>
-        {this.filterQuestionsIds().map((id) => (
-          <li key={id}>
-            <Question id={id} answered={this.state.answered}/>
-          </li>
-        ))}
-      </ul>
+        <Questions ids={this.filterQuestionsIds()} />
     </div>
   )
 

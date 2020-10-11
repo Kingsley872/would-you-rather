@@ -1,68 +1,36 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
-import Avatar from './Avatar'
-import { withRouter } from 'react-router-dom'
+import UnansweredPull from './UnansweredPull'
+import AnsweredPull from './AnsweredPull'
+import NotFoundPage from './NotFoundPage'
 
-class Question extends Component {
-  state = {
-    pull: ''
+const Question = (props) => {
+  const { authedUser, users, questions, id } = props
+
+  const vaildId = Object.keys(questions).includes(id)
+  if(!vaildId){
+    return <NotFoundPage />
   }
 
-  toParent = (e) => {
-    e.preventDefault()
-    let temp = ''
-    if(this.props.answered){
-      temp = `/answered-pull/${this.props.id}`
-      this.props.history.push(temp)
-    } else {
-      temp = `/unanswered-pull/${this.props.id}`
-      this.props.history.push(temp)
-    }
+  const answered = Object.keys(users[authedUser].answers).includes(id)
 
-    this.setState(() => ({
-      pull: temp
-    }))
-  }
+  return (
+    <div>
+      {answered
+        ? <AnsweredPull id={id} />
+        : <UnansweredPull id={id} />}
+    </div>
+  )
+}
 
-  render() {
-    const { users, question } = this.props
-    const avatar = users[question.author].avatarURL
-
-    return (
-      <div classs="question">
-        <h4>{users[question.author].name} asks</h4>
-
-        <Avatar
-          avatar={avatar}
-          auther={question.auther}
-        />
-
-        <div className="question-info">
-          <h5>Would you rather</h5>
-          <p>{question.optionOne.text.substring(0, 10)}...</p>
-          <button
-            className='btn'
-            onClick={this.toParent}
-          >
-            View pull
-          </button>
-        </div>
-
-      </div>
-    )
+function mapStateToProps({ authedUser, users, questions }, props) {
+  const {question_id} = props.match.params
+  return{
+    authedUser: authedUser,
+    users: users,
+    questions: questions,
+    id: question_id,
   }
 }
 
-function mapStateToProps({ authedUser, users, questions }, { id, answered}) {
-  const question = questions[id]
-
-  return {
-    users,
-    authedUser,
-    question,
-    id,
-    answered
-  }
-}
-
-export default withRouter(connect(mapStateToProps)(Question))
+export default connect(mapStateToProps)(Question)

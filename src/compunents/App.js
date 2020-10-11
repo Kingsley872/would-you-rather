@@ -6,12 +6,11 @@ import LoadingBar from 'react-redux-loading'
 
 import Nav from './Nav'
 import Home from './Home'
-import UnansweredPull from './UnansweredPull'
-import AnsweredPull from './AnsweredPull'
 import Authentication from './Authentication'
 import LoaderBoard from './LoaderBoard'
 import NewQuestion from './NewQuestion'
 import NotFoundPage from './NotFoundPage'
+import Question from './Question'
 
 class App extends Component {
   componentDidMount(){
@@ -31,8 +30,7 @@ class App extends Component {
                <Switch>
                   <Route path='/' exact component={Home} />
                   <Route path='/authentication' component={Authentication} />
-                  <Route path='/unanswered-pull/:id' component={UnansweredPull} />
-                  <Route path='/answered-pull/:id' component={AnsweredPull} />
+                  <Route path='/questions/:question_id' component={Question} />
                   <Route path='/loaderboard' component={LoaderBoard} />
                   <Route path='/add' component={NewQuestion} />
                   <Route path='*' component={NotFoundPage} />
